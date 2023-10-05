@@ -14,6 +14,7 @@ def get_data(data_path):
     
 
 if __name__ == '__main__':
+    parser = argparse.ArgumentParser(description='Videos to images')
     
     parser.add_argument('--train_data_path',
                     type=str,
@@ -31,6 +32,7 @@ if __name__ == '__main__':
     
     cat_features = ['waterfront', 'view', 'condition', 'zipcode']
     model = CatBoostRegressor(cat_features=cat_features, verbose=False)
+    model.fit(X_train, y_train)
     
     print('training...')
     model.save_model(args.path_to_save)

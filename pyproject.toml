@@ -1,0 +1,23 @@
+[tool.poetry]
+name = "apartment-prices-prediction"
+version = "0.1.0"
+description = ""
+authors = ["Potyashin <potyashin.ivan@yandex.ru>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.8.1"
+numpy = "^1.24.4"
+pandas = "^2.0.0"
+catboost = "^1.2.2"
+argparse = "^1.4.0"
+
+[tool.poetry.group.dev.dependencies]
+black = "^23.9.1"
+pytest = "^7.4.2"
+flake8 = "^6.1.0"
+isort = "^5.12.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

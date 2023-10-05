@@ -27,7 +27,8 @@ def calculate_metrics(y_true, y_pred):
     
 
 if __name__ == '__main__':
-    
+    parser = argparse.ArgumentParser(description='Videos to images')
+
     parser.add_argument('--val_data_path',
                     type=str,
                     default='./data/houses_val.csv')
