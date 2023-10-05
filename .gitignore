@@ -160,5 +160,5 @@ cython_debug/
 #.idea/
 
 catboost*
-models/*
+models/*.cbm
 data/val_pred.csv
