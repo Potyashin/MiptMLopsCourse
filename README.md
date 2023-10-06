@@ -34,5 +34,5 @@ poetry run python3 ./apartment_prices_prediction/train.py
 
 # evaluate model on vaidation data
 # params if needed: -val_data_path=<> --model_path=<> --path_to_save_pred=<>
-poetry run python3 ./apartment_prices_prediction/infer.py 
+poetry run python3 ./apartment_prices_prediction/infer.py
 ```
