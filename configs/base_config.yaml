@@ -5,10 +5,18 @@ catboost:
   max_depth: 5
 
 train:
-  train_data_path: ./data/houses_train.csv
-  path_to_save: ./models/model.cbm
+  train_data_path: data/houses_train.csv
+  path_to_save: models/model.cbm
 
 infer:
-  val_data_path: ./data/houses_val.csv
-  model_path: ./models/model.cbm
-  path_to_save_pred: ./data/val_pred.csv
+  val_data_path: data/houses_val.csv
+  model_path: models/model.cbm
+  path_to_save_pred: data/val_pred.csv
+
+mlflow:
+  tracking_uri: http://127.0.0.1:8080
+  exp_name: exp1
+
+server:
+  model_name: catboost_model_1
+  model_stage: 1

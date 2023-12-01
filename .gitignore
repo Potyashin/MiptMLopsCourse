@@ -165,3 +165,5 @@ models/*.cbm
 data/val_pred.csv
 
 outputs*
+mlruns*
+mlartifacts*
