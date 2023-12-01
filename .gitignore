@@ -163,3 +163,7 @@ catboost*
 models/*.cbm
 !models/.gitkeep
 data/val_pred.csv
+
+outputs*
+mlruns*
+mlartifacts*

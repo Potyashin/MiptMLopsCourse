@@ -29,10 +29,23 @@ The data has the following columns:
 ```
 poetry intsall
 # train model and save it
-# params if needed: --train_data_path=<> --path_to_save=<>
 poetry run python3 ./apartment_prices_prediction/train.py
 
 # evaluate model on vaidation data
-# params if needed: -val_data_path=<> --model_path=<> --path_to_save_pred=<>
 poetry run python3 ./apartment_prices_prediction/infer.py
+```
+
+## make server with mlflow models
+
+```
+bash run_server.sh
+```
+note that you have virtualenv to be installed. Also check model name/stage/uri before you start the script
+
+## request to server
+```
+curl -d '{"dataframe_split": {
+"columns": ["Unnamed: 0","id","date","price","bedrooms","bathrooms","sqft_living","sqft_lot","floors","waterfront","view","condition","grade","sqft_above","sqft_basement","yr_built","yr_renovated","zipcode","lat","long","sqft_living15","sqft_lot15"],
+"data": [[1,18295,"20151209T000000",538000.0,3,2.25,2570,7242,2.0,0,0,3,7,2170,400,1951,1991,98125,47.721,-122.319,1690,7639]]}}' \
+-H 'Content-Type: application/json' -X POST localhost:8001/invocations
 ```
