@@ -1,7 +1,7 @@
-import argparse
-
+import hydra
 import pandas as pd
 from catboost import CatBoostRegressor
+from omegaconf import DictConfig
 
 
 def basic_filter(data):
@@ -13,23 +13,20 @@ def get_data(data_path):
     return basic_filter(data)
 
 
-if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Videos to images")
-
-    parser.add_argument("--train_data_path", type=str, default="./data/houses_train.csv")
-
-    parser.add_argument("--path_to_save", type=str, default="./models/model.cbm")
-
-    args = parser.parse_args()
-
-    train_data = get_data(args.train_data_path)
+@hydra.main(version_base=None, config_path="../configs", config_name="base_config")
+def main(cfg: DictConfig) -> None:
+    train_data = get_data(cfg["train"]["train_data_path"])
     X_train = train_data[train_data.columns[train_data.columns != "price"]]
     y_train = train_data[["price"]]
 
     cat_features = ["waterfront", "view", "condition", "zipcode"]
-    model = CatBoostRegressor(cat_features=cat_features, verbose=False)
+    model = CatBoostRegressor(cat_features=cat_features, verbose=False, **cfg["catboost"])
     model.fit(X_train, y_train)
 
     print("training...")
-    model.save_model(args.path_to_save)
-    print(f"model saved to {args.path_to_save}")
+    model.save_model(cfg["train"]["path_to_save"])
+    print(f"model saved to {cfg['train']['path_to_save']}")
+
+
+if __name__ == "__main__":
+    main()

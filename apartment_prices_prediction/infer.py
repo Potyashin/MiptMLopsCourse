@@ -1,8 +1,8 @@
-import argparse
-
+import hydra
 import numpy as np
 import pandas as pd
 from catboost import CatBoostRegressor
+from omegaconf import DictConfig
 
 
 def basic_filter(data):
@@ -27,26 +27,21 @@ def calculate_metrics(y_true, y_pred):
     return metrics
 
 
-if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Videos to images")
-
-    parser.add_argument("--val_data_path", type=str, default="./data/houses_val.csv")
-
-    parser.add_argument("--model_path", type=str, default="./models/model.cbm")
-
-    parser.add_argument("--path_to_save_pred", type=str, default="./data/val_pred.csv")
-
-    args = parser.parse_args()
-
-    val_data = get_data(args.val_data_path)
+@hydra.main(version_base=None, config_path="../configs", config_name="base_config")
+def main(cfg: DictConfig) -> None:
+    val_data = get_data(cfg["infer"]["val_data_path"])
     X_val = val_data[val_data.columns[val_data.columns != "price"]]
     y_val = val_data[["price"]]
 
-    model = CatBoostRegressor()
-    model.load_model(args.model_path)
+    model = CatBoostRegressor(**cfg["catboost"])
+    model.load_model(cfg["infer"]["model_path"])
 
     y_pred = model.predict(X_val)
     metrics = calculate_metrics(y_val["price"].values, y_pred)
     print(metrics)
-    pd.DataFrame(y_pred, columns=["prices"]).to_csv(args.path_to_save_pred)
-    print(f"predictions saved to {args.path_to_save_pred}")
+    pd.DataFrame(y_pred, columns=["prices"]).to_csv(cfg["infer"]["path_to_save_pred"])
+    print(f"predictions saved to {cfg['infer']['path_to_save_pred']}")
+
+
+if __name__ == "__main__":
+    main()
