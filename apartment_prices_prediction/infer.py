@@ -2,6 +2,7 @@ import hydra
 import numpy as np
 import pandas as pd
 from catboost import CatBoostRegressor
+from dvc.api import DVCFileSystem
 from omegaconf import DictConfig
 
 
@@ -10,6 +11,9 @@ def basic_filter(data):
 
 
 def get_data(data_path):
+    fs = DVCFileSystem("./")
+    fs.get(data_path, data_path)
+    fs.get(data_path, data_path)
     data = pd.read_csv(data_path)
     return basic_filter(data)
 
