@@ -59,7 +59,7 @@ curl -d '{"dataframe_split": {
 * RAM: 8GM
 
 2. Структура model_repository
-.
+```
 ├── client.py
 ├── docker-compose.yaml
 ├── Dockerfile
@@ -69,10 +69,11 @@ curl -d '{"dataframe_split": {
 │       │   ├── model.py
 │       └── config.pbtxt
 └── requirements.txt
+```
 
 3. Оптимизация throughput и latency.
 
-До оптимизаций:
+До оптимизаций:  
 ![До оптимизаций](./images/before_optimizations.jpg)
 
 После оптимизаци (max_queue_delay_microseconds: 100, cpu: 2)
