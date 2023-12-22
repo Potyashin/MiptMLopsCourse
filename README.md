@@ -49,3 +49,33 @@ curl -d '{"dataframe_split": {
 "data": [[1,18295,"20151209T000000",538000.0,3,2.25,2570,7242,2.0,0,0,3,7,2170,400,1951,1991,98125,47.721,-122.319,1690,7639]]}}' \
 -H 'Content-Type: application/json' -X POST localhost:8001/invocations
 ```
+
+# Task3 (Triton server)
+
+1. Системная конфигурация:
+* OS: Ubuntu 20.04.6 LTS
+* CPU: Intel(R) Core(TM) i5-8250U CPU @ 1.60GHz
+* Кол-во vCPU: 4
+* RAM: 8GM
+
+2. Структура model_repository
+.
+├── client.py
+├── docker-compose.yaml
+├── Dockerfile
+├── model_repository
+│   └── catboost
+│       ├── 1
+│       │   ├── model.py
+│       └── config.pbtxt
+└── requirements.txt
+
+3. Оптимизация throughput и latency.
+
+До оптимизаций:
+![До оптимизаций](./images/before_optimizations.jpg)
+
+После оптимизаци (max_queue_delay_microseconds: 100, cpu: 2)
+![После оптимизаций](./images/after_optimizations.jpg)
+
+Мотивация такая: если менять параметры, то метрики throughpu и latency улучшаются. Вот я и поменял

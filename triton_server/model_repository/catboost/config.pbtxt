@@ -1,0 +1,31 @@
+name: "catboost"
+backend: "python"
+max_batch_size: 8
+
+
+input [
+    {
+        name: "INPUTS"
+        data_type: TYPE_FP16
+        dims: [ 19 ]
+    }
+]
+
+output [
+    {
+        name: "OUTPUTS"
+        data_type: TYPE_FP32
+        dims: [ 1 ]
+    }
+]
+
+instance_group [
+    {
+        count: 2
+        kind: KIND_CPU
+    }
+]
+
+dynamic_batching {
+    max_queue_delay_microseconds: 100
+}
