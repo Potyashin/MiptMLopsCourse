@@ -79,3 +79,12 @@ curl -d '{"dataframe_split": {
 ![После оптимизаций](./images/after_optimizations.jpg)
 
 Мотивация такая: если менять параметры, то метрики throughpu и latency улучшаются. Вот я и поменял
+
+### Запуск клиента
+
+```
+conda config --add channels conda-forge
+conda create -n tritonclient tritonclient-http
+conda activate tritonclient
+python client.py
+```
